@@ -1,0 +1,85 @@
+// src/components/Sidebar.jsx
+import { IconBulb, IconCheckbox, IconPlus, IconSearch, IconUser } from '@tabler/icons-react';
+import UserButton from './UserButton';
+import './Style/sidebar.css';
+
+const links = [
+  { icon: IconBulb, label: 'Activity', notifications: 3 },
+  { icon: IconCheckbox, label: 'Tasks', notifications: 4 },
+  { icon: IconUser, label: 'Contacts' },
+];
+
+const collections = [
+  { emoji: '👍', label: 'Sales' },
+  { emoji: '🚚', label: 'Deliveries' },
+  { emoji: '💸', label: 'Discounts' },
+  { emoji: '💰', label: 'Profits' },
+  { emoji: '✨', label: 'Reports' },
+  { emoji: '🛒', label: 'Orders' },
+  { emoji: '📅', label: 'Events' },
+  { emoji: '🙈', label: 'Debts' },
+  { emoji: '💁‍♀️', label: 'Customers' },
+];
+
+const Sidebar = ({ onClose }) => {
+  return (
+    <nav className="sidebar">
+      <button className="close-btn" onClick={onClose}>×</button>
+
+      {/* User */}
+      <div className="sidebar-section">
+        <UserButton />
+      </div>
+
+      {/* Search Bar */}
+      <div className="sidebar-section">
+        <div className="search-wrapper">
+          <IconSearch size={14} />
+          <input
+            type="text"
+            placeholder="Search"
+            className="search-input"
+          />
+          <span className="search-code"><i class="fa-brands fa-searchengin"></i></span>
+        </div>
+      </div>
+
+      {/* Main Links */}
+      <div className="sidebar-section">
+        <ul className="main-links">
+          {links.map((link) => (
+            <li className="main-link" key={link.label}>
+              <div className="main-link-inner">
+                <link.icon size={18} />
+                <span>{link.label}</span>
+              </div>
+              {link.notifications && (
+                <span className="main-link-badge">{link.notifications}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Collections */}
+      <div className="sidebar-section">
+        <div className="collections-header">
+          <span className="collections-title">Collections</span>
+          <button className="collection-add-btn">
+            <IconPlus size={12} />
+          </button>
+        </div>
+        <ul className="collections">
+          {collections.map((collection) => (
+            <li key={collection.label} className="collection-link">
+              <span className="emoji">{collection.emoji}</span>
+              {collection.label}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+export default Sidebar;

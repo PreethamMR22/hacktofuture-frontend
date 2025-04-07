@@ -1,0 +1,47 @@
+.app-container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-layout {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar-wrapper {
+  width: 200px;
+  transition: width 0.3s ease;
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  flex-grow: 1;
+  transition: all 0.3s ease;
+}
+
+.content-area.with-sidebar {
+  width: calc(100% - 200px);
+}
+
+.content-area.full-width {
+  width: 100%;
+}
+
+.open-sidebar-btn {
+  position: absolute;
+  top: 10px;
+
+  left: 10px;
+  background: #3a57e8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  z-index: 10;
+}

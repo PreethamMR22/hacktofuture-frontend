@@ -1,0 +1,46 @@
+.navbar {
+    height: 60px;
+    background: #212529;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    padding-left:4rem ;
+}
+h2 {
+    cursor:pointer;
+}
+h2.logo {
+    cursor: default;
+    user-select: none;
+    pointer-events: auto;
+  }  
+  .logo {
+    color: #fab005 ;
+  }
+  .open-sidebar-btn {
+    background-color: #fab005 ;
+  }
+  .search-bar {
+    width: 300px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #5e636854;
+    
+    color:black;
+    &:hover {
+        width: 350px;
+        
+        box-shadow: rgba(0, 0, 0, 0.081) 4px 4px 10px 4px;
+        transition:0.3s ease-in-out;
+    }
+  }
+  
+  .nav-icons {
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+    color: #555;
+  }
+  
