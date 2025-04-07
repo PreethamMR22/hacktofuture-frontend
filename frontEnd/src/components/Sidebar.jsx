@@ -1,6 +1,6 @@
-// src/components/Sidebar.jsx
+// Sidebar.jsx
 import { IconBulb, IconCheckbox, IconPlus, IconSearch, IconUser } from '@tabler/icons-react';
-import UserButton from './UserButton';
+import { Link } from 'react-router-dom';
 import './Style/sidebar.css';
 
 const links = [
@@ -26,21 +26,22 @@ const Sidebar = ({ onClose }) => {
     <nav className="sidebar">
       <button className="close-btn" onClick={onClose}>×</button>
 
-      {/* User */}
-      <div className="sidebar-section">
-        <UserButton />
+      {/* User Profile */}
+      <div className="sidebar-section user-profile-top">
+        <img src="/profile.jpg" alt="User" className="user-avatar" />
+        <div className="user-info">
+          <div className="user-name">John Doe</div>
+          <div className="user-role">Admin</div>
+          <div className="hospital-name">City Hospital</div>
+        </div>
       </div>
 
       {/* Search Bar */}
       <div className="sidebar-section">
         <div className="search-wrapper">
           <IconSearch size={14} />
-          <input
-            type="text"
-            placeholder="Search"
-            className="search-input"
-          />
-          <span className="search-code"><i class="fa-brands fa-searchengin"></i></span>
+          <input type="text" placeholder="Search" className="search-input" />
+          <span className="search-code"><i className="fa-brands fa-searchengin"></i></span>
         </div>
       </div>
 
@@ -49,10 +50,10 @@ const Sidebar = ({ onClose }) => {
         <ul className="main-links">
           {links.map((link) => (
             <li className="main-link" key={link.label}>
-              <div className="main-link-inner">
+              <Link to={`/${link.label.toLowerCase()}`} className="main-link-inner">
                 <link.icon size={18} />
                 <span>{link.label}</span>
-              </div>
+              </Link>
               {link.notifications && (
                 <span className="main-link-badge">{link.notifications}</span>
               )}

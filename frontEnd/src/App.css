@@ -1,8 +1,13 @@
+*{
+  padding:0;
+  margin:0;
+}
 .app-container {
-  height: 100vh;
+  height: 120vh;
   width: 100vw;
   overflow: hidden;
   position: relative;
+  background-color: rgb(49, 49, 49);
 }
 
 .main-layout {
@@ -35,9 +40,9 @@
 .open-sidebar-btn {
   position: absolute;
   top: 10px;
-
+  
   left: 10px;
-  background: #3a57e8;
+  background: #ffe600;
   color: #fff;
   border: none;
   border-radius: 5px;

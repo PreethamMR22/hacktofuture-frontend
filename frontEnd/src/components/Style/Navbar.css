@@ -1,5 +1,5 @@
 .navbar {
-    height: 60px;
+    height: 60px  ;
     background: #212529;
     display: flex;
     align-items: center;
@@ -7,6 +7,7 @@
     padding: 0 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     padding-left:4rem ;
+    
 }
 h2 {
     cursor:pointer;
@@ -17,7 +18,7 @@ h2.logo {
     pointer-events: auto;
   }  
   .logo {
-    color: #fab005 ;
+    color:#ffe600 ;
   }
   .open-sidebar-btn {
     background-color: #fab005 ;

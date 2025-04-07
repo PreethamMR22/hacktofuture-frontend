@@ -1,155 +1,171 @@
-/* src/components/Style/sidebar.css */
-.sidebar {
-    width: 220px;
-    background: #212529;
-    color: white;
-    height: 100vh;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow-y: auto;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 20px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .sidebar-section {
-    margin-bottom: 25px;
-  }
-  
-  .search-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #63676a31;
-    padding: 8px;
-    border-radius: 6px;
-  }
-  
-  .search-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: white;
-  }
-  
-  .search-code {
-    font-size: 10px;
-    color: #90caf9;
-  }
-  
-  .main-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .main-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-  }
-  
-  .main-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .main-link-inner {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .main-link-badge {
-    background-color: #3a57e8;
-    color: white;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 12px;
-  }
-  
-  .collections-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .collection-add-btn {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .collections {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  
-  .collection-link {
-    display: flex;
-    align-items: center;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: background 0.2s ease;
-    cursor: pointer;
-  }
-  
-  .collection-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .emoji {
-    margin-right: 10px;
-  }
-  
-  .user-button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .search-code {
-    font-size:20px;
-    margin-left:-1rem;
-    cursor:pointer;
-  }
+/* sidebar.css */
 
-  .user-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-  }
-  
-  .user-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .user-name {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .user-role {
-    font-size: 12px;
-    color: #bbdefb;
-  }
-  
+.sidebar {
+  width: 220px;
+  background: #212529;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar-section {
+  margin-bottom: 25px;
+}
+
+.user-profile-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #bbdefb;
+}
+
+.hospital-name {
+  font-size: 12px;
+  color: #ccc;
+  font-style: italic;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #63676a31;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.search-code {
+  font-size: 20px;
+  margin-left: -1rem;
+  cursor: pointer;
+}
+
+.main-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.main-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.main-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.main-link-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.main-link-inner:hover {
+  text-decoration: underline;
+}
+
+.main-link-badge {
+  background-color: #3a57e8;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+
+.collections-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.collection-add-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.collections {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.collection-link {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.collection-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.emoji {
+  margin-right: 10px;
+}

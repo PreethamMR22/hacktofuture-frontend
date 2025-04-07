@@ -1,19 +1,93 @@
-import React from "react";
-import "./home.css";
+import React, { useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
+import "./Home.css";
 
 const Home = ({ shiftRight }) => {
+  const chartRef = useRef(null);
+  const chartInstanceRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = chartRef.current.getContext("2d");
+    if (chartInstanceRef.current) {
+      chartInstanceRef.current.destroy();
+    }
+
+    chartInstanceRef.current = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+        datasets: [
+          {
+            label: "Security Factor",
+            data: [30, 50, 70, 40, 60],
+            backgroundColor: "rgba(255, 255, 0, 0.8)",
+            borderRadius: 10,
+            barPercentage: 0.4,
+            categoryPercentage: 0.5,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+          },
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: "rgba(255,255,255,0.1)",
+            },
+          },
+        },
+      },
+    });
+  }, []);
+
   return (
     <div className={`home ${shiftRight ? "shifted" : ""}`}>
-      <div className="top-cards">
-        <div className="card">Card 1</div>
-        <div className="card">Card 2</div>
-        <div className="card">Card 3</div>
+      <div className="page-title">Current Data</div>
+
+      <div className="section">
+        <div className="top-left">
+          <canvas ref={chartRef}></canvas>
+        </div>
+        <div className="top-right">
+          <h3>Hospital Performance</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+            convallis egestas rhoncus.
+          </p>
+        </div>
       </div>
 
-      <div className="requests">
-        <div className="request-card">Request A</div>
-        <div className="request-card">Request B</div>
-        <div className="request-card">Request C</div>
+      <div className="section">
+        <div className="middle-left glass-box">
+          <p>Status: Operational</p>
+          <p>No of beds available: 120</p>
+          <p>No of beds required: 150</p>
+        </div>
+        <div className="middle-right info-box">
+          <h4>Expenditure & Finance</h4>
+          <p>No of doctors required: 10</p>
+          <p>Total expenditure on doctors: ₹5,00,000</p>
+          <p>No of patients expected: 230</p>
+        </div>
+      </div>
+
+      <div className="divider"></div>
+
+      <div className="footer">
+        <div className="footer-box">Box 1: Daily Patients</div>
+        <div className="footer-box">Box 2: Medicine Stock</div>
+        <div className="footer-box">Box 3: Revenue</div>
+        <div className="footer-box">Box 4: Feedback</div>
       </div>
     </div>
   );
