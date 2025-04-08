@@ -1,12 +1,12 @@
 // Sidebar.jsx
 import { IconBulb, IconCheckbox, IconPlus, IconSearch, IconUser } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Style/Sidebar.css';
 
 const links = [
-  { icon: IconBulb, label: 'Activity', notifications: 3 },
-  { icon: IconCheckbox, label: 'Tasks', notifications: 4 },
-  { icon: IconUser, label: 'Contacts' },
+  { icon: IconBulb, label: 'Home', notifications: 3 },
+  { icon: IconCheckbox, label: 'Statistics', notifications: 4 },
+  { icon: IconUser, label: 'reports' },
 ];
 
 const collections = [
@@ -21,7 +21,14 @@ const collections = [
   { emoji: '💁‍♀️', label: 'Customers' },
 ];
 
+
 const Sidebar = ({ onClose }) => {
+ 
+const navigate=useNavigate();
+const handleClick=(value)=> {
+  navigate(`/${value}`);
+ }
+ 
   return (
     <nav className="sidebar">
       <button className="close-btn" onClick={onClose}>×</button>
@@ -52,7 +59,7 @@ const Sidebar = ({ onClose }) => {
             <li className="main-link" key={link.label}>
               <Link to={`/${link.label.toLowerCase()}`} className="main-link-inner">
                 <link.icon size={18} />
-                <span>{link.label}</span>
+                <span onClick={()=>handleClick(link.label)}>{link.label}</span>
               </Link>
               {link.notifications && (
                 <span className="main-link-badge">{link.notifications}</span>

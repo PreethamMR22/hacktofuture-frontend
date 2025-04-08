@@ -24,6 +24,11 @@
     flex-direction: column;
     gap: 0.5rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.095);;
+      color:rgb(250, 176, 5);
+      transition: 0.3s ease-in-out;
+    }
   }
   
   .stat-header {

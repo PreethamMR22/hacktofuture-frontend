@@ -18,7 +18,7 @@
   font-weight: bold;
   color: white;
   margin-bottom: 10px;
-  padding-left: 1rem;
+  padding-left: 3rem;
 }
 
 .section {
@@ -33,6 +33,7 @@
 .top-right,
 .middle-left,
 .middle-right {
+  margin-left:2rem;
   min-width: 240px;
   padding: 16px;
   border-radius: 10px;
@@ -151,6 +152,3 @@
   }
 }
 
-canvas {
-  height:100rem;
-}

@@ -124,7 +124,7 @@ function Landing() {
           </div>
 
           <div className="top-right">
-            <h3>Hospital Performance</h3>
+            <h3 style={{color:"#fab005"}} >Hospital Performance</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
               convallis egestas rhoncus.
@@ -134,15 +134,15 @@ function Landing() {
 
         <div className="section">
           <div className="middle-left glass-box">
-            <p>Status: Operational</p>
-            <p>No of beds available: 120</p>
+            <p>Status: <span style={{color:"red", fontSize:"18px",fontWeight:"bolder"}}>Deficient</span></p>
             <p>No of beds required: 150</p>
+            <p>No of beds available: 120</p>
           </div>
           <div className="middle-right info-box">
-            <h4>Expenditure & Finance</h4>
-            <p>No of doctors required: 10</p>
-            <p>Total expenditure on doctors: ₹5,00,000</p>
-            <p>No of patients expected: 230</p>
+            <h4 style={{color:"#fab005"}}>Expenditure & Finance</h4>
+            <p>No of doctors required: <span style={{color:" rgb(250, 176, 5)"}}>10</span></p>
+            <p>Total expenditure on doctors: <span style={{color:" rgb(250, 176, 5)"}}>₹5,00,000</span></p>
+            <p>No of patients expected: <span style={{color:" rgb(250, 176, 5)"}}>230</span></p>
           </div>
         </div>
       </div>

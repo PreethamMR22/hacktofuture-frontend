@@ -63,7 +63,7 @@ const Home = ({ shiftRight, show }) => {
       <div className="page-title">Current Data</div>
 
       <div>
-        {location.pathname === "/stats" ? <BranchDashboard /> : <Landing />}
+        {location.pathname === "/statistics" ? <BranchDashboard /> : <Landing />}
       </div>
 
       <div className="divider"></div>
