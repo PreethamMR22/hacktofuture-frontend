@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
+import TextToSpeechButton from "./components/TextToSpeechButton"; // Import TTS button
 import "./App.css";
 
 const App = () => {
@@ -32,6 +33,9 @@ const App = () => {
           ☰
         </button>
       )}
+
+      {/* Text to Speech Button */}
+      <TextToSpeechButton />
     </div>
   );
 };
