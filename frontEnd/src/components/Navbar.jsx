@@ -3,7 +3,7 @@ import "./Style/Navbar.css";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <h2 className="logo" contentEditable={false}>  BBHS onProgress</h2>
+      <h2 className="logo" contentEditable={false}>  Hackfuture onProgress</h2>
       <input type="text" placeholder="Search" className="search-bar" />
       <div className="nav-icons">
         <i className="fas fa-bell"></i>
