@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import "../pages/Home.css";
 import { useNavigate } from 'react-router-dom';
@@ -11,12 +11,20 @@ function Landing() {
   const pieInstanceRef = useRef(null);
   const navigate = useNavigate();
 
-  // Bar Chart
+  const [zipCode, setZipCode] = useState("560001");
+  const [bedsAvailable, setBedsAvailable] = useState(120);
+  const [reportData, setReportData] = useState(null);
+  const [bedRequired, setBedRequired] = useState(150);
+  const [doctors, setDoctors] = useState(10);
+  const [expenditure, setExpenditure] = useState(500000);
+  const [patientsExpected, setPatientsExpected] = useState(230);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:5000/get_data', {
-          params: { zip_code: '560001' },
+          params: { zip_code: zipCode },
         });
 
         const parsedData = response.data;
@@ -66,7 +74,6 @@ function Landing() {
           },
         });
 
-        // Pie Chart update with new colors
         const pieCtx = pieRef.current.getContext("2d");
         if (pieInstanceRef.current) {
           pieInstanceRef.current.destroy();
@@ -106,13 +113,8 @@ function Landing() {
               {
                 data: percentages,
                 backgroundColor: [
-                  "#1f77b4", // blue
-                  "#ff7f0e", // orange
-                  "#2ca02c", // green
-                  "#d62728", // red
-                  "#9467bd", // purple
-                  "#8c564b", // brown
-                  "#e377c2"  // pink (spare color for future use)
+                  "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728",
+                  "#9467bd", "#8c564b", "#e377c2"
                 ],
                 borderWidth: 1,
               },
@@ -148,24 +150,102 @@ function Landing() {
         pieInstanceRef.current.destroy();
       }
     };
-  }, []);
+  }, [zipCode]);
 
   const handleClick = () => {
     navigate('/statistics');
   };
 
+  const generateReport = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`http://127.0.0.1:5000/generate_report?zip_code=${zipCode}`);
+      const report = res.data.report;
+      setReportData(report);
+
+      const numbers = report.match(/\d+/g)?.map(Number) || [];
+      const bedReq = numbers.find(n => n > 50 && n < 1000) || 150;
+      const docs = Math.ceil(bedReq / 10);
+      const expend = docs * 50000;
+      const patients = Math.floor(bedReq * 1.5);
+
+      setBedRequired(bedReq);
+      setDoctors(docs);
+      setExpenditure(expend);
+      setPatientsExpected(patients);
+    } catch (err) {
+      console.error("Failed to fetch report", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
       <div style={{ flex: 1 }}>
+        <div style={{ padding: "1rem 2rem 0.5rem", display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <input
+  type="text"
+  placeholder="ZIP Code"
+  value={zipCode}
+  onChange={(e) => setZipCode(e.target.value)}
+  style={{
+    padding: "8px 12px",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+    outline: "none",
+    background: "#1e1e1e",
+    color: "white",
+    fontSize: "14px"
+  }}
+/>
+
+<input
+  type="number"
+  placeholder="Beds Available"
+  value={bedsAvailable}
+  onChange={(e) => setBedsAvailable(Number(e.target.value))}
+  style={{
+    padding: "8px 12px",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+    outline: "none",
+    background: "#1e1e1e",
+    color: "white",
+    fontSize: "14px"
+  }}
+/>
+
+<button
+  onClick={generateReport}
+  style={{
+    backgroundColor: "#fab005",
+    border: "none",
+    borderRadius: "8px",
+    padding: "8px 16px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    color: "#000",
+    transition: "0.3s ease"
+  }}
+>
+  Generate
+</button>
+
+          {loading && (
+            <div className="custom-spinner">
+              <div className="dot"></div>
+              <div className="dot"></div>
+              <div className="dot"></div>
+            </div>
+          )}
+        </div>
+
         <div className="section">
           <div
             className="top-left"
             onClick={handleClick}
-            style={{
-              cursor: "pointer",
-              height: "250px",
-              padding: "10px",
-            }}
+            style={{ cursor: "pointer", height: "250px", padding: "10px" }}
           >
             <canvas
               ref={chartRef}
@@ -176,23 +256,24 @@ function Landing() {
           <div className="top-right">
             <h3 style={{ color: "#fab005" }}>Hospital Performance</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              convallis egestas rhoncus.
+              {reportData
+                ? "Expand emergency zones, improve staff rotations, and ensure real-time logistics readiness."
+                : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus."}
             </p>
           </div>
         </div>
 
         <div className="section">
           <div className="middle-left glass-box">
-            <p>Status: <span style={{ color: "red", fontSize: "18px", fontWeight: "bolder" }}>Deficient</span></p>
-            <p>No of beds required: 150</p>
-            <p>No of beds available: 120</p>
+            <p>Status: <span style={{ color: bedRequired > bedsAvailable ? "red" : "green", fontSize: "18px", fontWeight: "bolder" }}>{bedRequired > bedsAvailable ? "Deficient" : "Sufficient"}</span></p>
+            <p>No of beds required: {bedRequired}</p>
+            <p>No of beds available: {bedsAvailable}</p>
           </div>
           <div className="middle-right info-box">
             <h4 style={{ color: "#fab005" }}>Expenditure & Finance</h4>
-            <p>No of doctors required: <span style={{ color: " rgb(250, 176, 5)" }}>10</span></p>
-            <p>Total expenditure on doctors: <span style={{ color: " rgb(250, 176, 5)" }}>₹5,00,000</span></p>
-            <p>No of patients expected: <span style={{ color: " rgb(250, 176, 5)" }}>230</span></p>
+            <p>No of doctors required: <span style={{ color: " rgb(250, 176, 5)" }}>{doctors}</span></p>
+            <p>Total expenditure on doctors: <span style={{ color: " rgb(250, 176, 5)" }}>₹{expenditure.toLocaleString()}</span></p>
+            <p>No of patients expected: <span style={{ color: " rgb(250, 176, 5)" }}>{patientsExpected}</span></p>
           </div>
         </div>
       </div>
@@ -222,9 +303,32 @@ function Landing() {
           ></canvas>
         </div>
       </div>
+
+      <style>{`
+        .custom-spinner {
+          display: flex;
+          gap: 5px;
+        }
+        .custom-spinner .dot {
+          width: 10px;
+          height: 10px;
+          background-color: #fab005;
+          border-radius: 50%;
+          animation: bounce 0.6s infinite alternate;
+        }
+        .custom-spinner .dot:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        .custom-spinner .dot:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+        @keyframes bounce {
+          from { transform: translateY(0); opacity: 0.6; }
+          to { transform: translateY(-8px); opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
 
 export default Landing;
-  
