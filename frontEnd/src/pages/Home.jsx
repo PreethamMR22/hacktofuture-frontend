@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import "./Home.css";
+import BranchDashboard from "../components/dash";
+import BottomStats from "../components/BottomStats"; 
 
 const Home = ({ shiftRight }) => {
   const chartRef = useRef(null);
@@ -8,10 +10,13 @@ const Home = ({ shiftRight }) => {
 
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");
+
+    // Destroy existing chart if any
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy();
     }
 
+    // Create new chart
     chartInstanceRef.current = new Chart(ctx, {
       type: "bar",
       data: {
@@ -20,7 +25,7 @@ const Home = ({ shiftRight }) => {
           {
             label: "Security Factor",
             data: [30, 50, 70, 40, 60],
-            backgroundColor: "rgba(255, 255, 0, 0.8)",
+            backgroundColor: "#fab005",
             borderRadius: 10,
             barPercentage: 0.4,
             categoryPercentage: 0.5,
@@ -48,12 +53,21 @@ const Home = ({ shiftRight }) => {
         },
       },
     });
+
+    // Cleanup function to destroy chart on unmount
+    return () => {
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
+      }
+    };
   }, []);
 
   return (
     <div className={`home ${shiftRight ? "shifted" : ""}`}>
       <div className="page-title">Current Data</div>
-
+      <div>
+          <BranchDashboard />
+        </div>
       <div className="section">
         <div className="top-left">
           <canvas ref={chartRef}></canvas>
@@ -66,6 +80,7 @@ const Home = ({ shiftRight }) => {
           </p>
         </div>
       </div>
+
 
       <div className="section">
         <div className="middle-left glass-box">
@@ -83,12 +98,13 @@ const Home = ({ shiftRight }) => {
 
       <div className="divider"></div>
 
-      <div className="footer">
+      {/* <div className="footer">
         <div className="footer-box">Box 1: Daily Patients</div>
         <div className="footer-box">Box 2: Medicine Stock</div>
         <div className="footer-box">Box 3: Revenue</div>
         <div className="footer-box">Box 4: Feedback</div>
-      </div>
+      </div> */}
+      <BottomStats/>
     </div>
   );
 };

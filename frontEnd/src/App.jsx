@@ -2,10 +2,10 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
-import "./app.css";
+import "./App.css";
 
 const App = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState();
 
   return (
     <div className="app-container">

@@ -1,7 +1,7 @@
 // Sidebar.jsx
 import { IconBulb, IconCheckbox, IconPlus, IconSearch, IconUser } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
-import './Style/sidebar.css';
+import './Style/Sidebar.css';
 
 const links = [
   { icon: IconBulb, label: 'Activity', notifications: 3 },
