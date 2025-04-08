@@ -9,17 +9,17 @@ const links = [
   { icon: IconUser, label: 'reports' },
 ];
 
-const collections = [
-  { emoji: '👍', label: 'Sales' },
-  { emoji: '🚚', label: 'Deliveries' },
-  { emoji: '💸', label: 'Discounts' },
-  { emoji: '💰', label: 'Profits' },
-  { emoji: '✨', label: 'Reports' },
-  { emoji: '🛒', label: 'Orders' },
-  { emoji: '📅', label: 'Events' },
-  { emoji: '🙈', label: 'Debts' },
-  { emoji: '💁‍♀️', label: 'Customers' },
-];
+// const collections = [
+//   { emoji: '👍', label: 'Sales' },
+//   { emoji: '🚚', label: 'Deliveries' },
+//   { emoji: '💸', label: 'Discounts' },
+//   { emoji: '💰', label: 'Profits' },
+//   { emoji: '✨', label: 'Reports' },
+//   { emoji: '🛒', label: 'Orders' },
+//   { emoji: '📅', label: 'Events' },
+//   { emoji: '🙈', label: 'Debts' },
+//   { emoji: '💁‍♀️', label: 'Customers' },
+// ];
 
 
 const Sidebar = ({ onClose }) => {
@@ -35,9 +35,9 @@ const handleClick=(value)=> {
 
       {/* User Profile */}
       <div className="sidebar-section user-profile-top">
-        <img src="/profile.jpg" alt="User" className="user-avatar" />
+        <img src="https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_1280.png" alt="User" className="user-avatar" />
         <div className="user-info">
-          <div className="user-name">John Doe</div>
+          <div className="user-name">Shripadulla <br/>Astafa Khaan</div>
           <div className="user-role">Admin</div>
           <div className="hospital-name">City Hospital</div>
         </div>
@@ -70,7 +70,7 @@ const handleClick=(value)=> {
       </div>
 
       {/* Collections */}
-      <div className="sidebar-section">
+      {/* <div className="sidebar-section">
         <div className="collections-header">
           <span className="collections-title">Collections</span>
           <button className="collection-add-btn">
@@ -85,7 +85,7 @@ const handleClick=(value)=> {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </nav>
   );
 };
