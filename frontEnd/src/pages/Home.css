@@ -26,6 +26,7 @@
   gap: 20px;
   flex-wrap: wrap;
   height: auto;
+  margin-bottom:1rem;
 }
 
 .top-left,
@@ -51,6 +52,10 @@
   justify-content: center;
   position: relative;
   height: 230px;
+  &:hover {
+    transform: translateY(-5px);
+    transition:0.3s ease;
+  }
 }
 
 .top-left canvas {
@@ -144,4 +149,8 @@
   .middle-right, .top-right, .footer-box {
     flex: 1 !important;
   }
+}
+
+canvas {
+  height:100rem;
 }

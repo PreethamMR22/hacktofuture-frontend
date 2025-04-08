@@ -5,17 +5,17 @@ import Home from "./pages/Home";
 import "./App.css";
 
 const App = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="app-container">
       <div className="main-layout">
-        {isSidebarOpen && (
-          <div className="sidebar-wrapper">
-            <Sidebar onClose={() => setIsSidebarOpen(false)} />
-          </div>
-        )}
+        {/* Sidebar with animated class */}
+        <div className={`sidebar-wrapper ${isSidebarOpen ? "open" : ""}`} >
+          <Sidebar onClose={() => setIsSidebarOpen(false)} />
+        </div>
 
+        {/* Main content area with shift logic */}
         <div
           className={`content-area ${
             isSidebarOpen ? "with-sidebar" : "full-width"
@@ -26,6 +26,7 @@ const App = () => {
         </div>
       </div>
 
+      {/* Sidebar toggle button */}
       {!isSidebarOpen && (
         <button className="open-sidebar-btn" onClick={() => setIsSidebarOpen(true)}>
           ☰

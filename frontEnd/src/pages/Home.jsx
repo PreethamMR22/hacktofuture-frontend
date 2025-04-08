@@ -1,22 +1,25 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Chart from "chart.js/auto";
 import "./Home.css";
 import BranchDashboard from "../components/dash";
-import BottomStats from "../components/BottomStats"; 
+import BottomStats from "../components/BottomStats";
+import Landing from "../components/Landing";
 
-const Home = ({ shiftRight }) => {
+const Home = ({ shiftRight, show }) => {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const ctx = chartRef.current.getContext("2d");
+    const ctx = chartRef.current?.getContext("2d");
+    if (!ctx) return;
 
-    // Destroy existing chart if any
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy();
     }
 
-    // Create new chart
     chartInstanceRef.current = new Chart(ctx, {
       type: "bar",
       data: {
@@ -36,25 +39,15 @@ const Home = ({ shiftRight }) => {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: {
-            display: false,
-          },
+          legend: { display: false },
         },
         scales: {
-          x: {
-            grid: { display: false },
-          },
-          y: {
-            beginAtZero: true,
-            grid: {
-              color: "rgba(255,255,255,0.1)",
-            },
-          },
+          x: { grid: { display: false } },
+          y: { beginAtZero: true, grid: { color: "rgba(255,255,255,0.1)" } },
         },
       },
     });
 
-    // Cleanup function to destroy chart on unmount
     return () => {
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
@@ -64,47 +57,18 @@ const Home = ({ shiftRight }) => {
 
   return (
     <div className={`home ${shiftRight ? "shifted" : ""}`}>
+      {/* Top-left clickable area */}
+     
+
       <div className="page-title">Current Data</div>
+
       <div>
-          <BranchDashboard />
-        </div>
-      <div className="section">
-        <div className="top-left">
-          <canvas ref={chartRef}></canvas>
-        </div>
-        <div className="top-right">
-          <h3>Hospital Performance</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-            convallis egestas rhoncus.
-          </p>
-        </div>
-      </div>
-
-
-      <div className="section">
-        <div className="middle-left glass-box">
-          <p>Status: Operational</p>
-          <p>No of beds available: 120</p>
-          <p>No of beds required: 150</p>
-        </div>
-        <div className="middle-right info-box">
-          <h4>Expenditure & Finance</h4>
-          <p>No of doctors required: 10</p>
-          <p>Total expenditure on doctors: ₹5,00,000</p>
-          <p>No of patients expected: 230</p>
-        </div>
+        {location.pathname === "/stats" ? <BranchDashboard /> : <Landing />}
       </div>
 
       <div className="divider"></div>
 
-      {/* <div className="footer">
-        <div className="footer-box">Box 1: Daily Patients</div>
-        <div className="footer-box">Box 2: Medicine Stock</div>
-        <div className="footer-box">Box 3: Revenue</div>
-        <div className="footer-box">Box 4: Feedback</div>
-      </div> */}
-      <BottomStats/>
+      <BottomStats />
     </div>
   );
 };
