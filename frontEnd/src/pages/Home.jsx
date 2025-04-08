@@ -5,6 +5,7 @@ import "./Home.css";
 import BranchDashboard from "../components/dash";
 import BottomStats from "../components/BottomStats";
 import Landing from "../components/Landing";
+import Report from "../components/Report"; // ✅ NEW IMPORT
 
 const Home = ({ shiftRight, show }) => {
   const chartRef = useRef(null);
@@ -58,12 +59,17 @@ const Home = ({ shiftRight, show }) => {
   return (
     <div className={`home ${shiftRight ? "shifted" : ""}`}>
       {/* Top-left clickable area */}
-     
 
       <div className="page-title">Current Data</div>
 
       <div>
-        {location.pathname === "/statistics" ? <BranchDashboard /> : <Landing />}
+        {location.pathname === "/statistics" ? (
+          <BranchDashboard />
+        ) : location.pathname === "/report" ? (
+          <Report /> // ✅ Shows report component if route is "/report"
+        ) : (
+          <Landing />
+        )}
       </div>
 
       <div className="divider"></div>

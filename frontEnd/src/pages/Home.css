@@ -69,7 +69,7 @@
 }
 
 .top-left::before {
-  content: "Security Factor";
+  content: "ER Factor";
   position: absolute;
   top: 8px;
   left: 20px;

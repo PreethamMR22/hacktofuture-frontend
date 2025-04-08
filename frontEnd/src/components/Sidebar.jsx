@@ -6,7 +6,7 @@ import './Style/Sidebar.css';
 const links = [
   { icon: IconBulb, label: 'Home', notifications: 3 },
   { icon: IconCheckbox, label: 'Statistics', notifications: 4 },
-  { icon: IconUser, label: 'reports' },
+  { icon: IconUser, label: 'report' },
 ];
 
 // const collections = [
@@ -37,9 +37,9 @@ const handleClick=(value)=> {
       <div className="sidebar-section user-profile-top">
         <img src="https://cdn.pixabay.com/photo/2019/08/11/18/59/icon-4399701_1280.png" alt="User" className="user-avatar" />
         <div className="user-info">
-          <div className="user-name">Shripadulla <br/>Astafa Khaan</div>
+          <div className="user-name"> Username's <br/>dashboard</div>
           <div className="user-role">Admin</div>
-          <div className="hospital-name">City Hospital</div>
+          <div className="hospital-name">Hospital Name</div>
         </div>
       </div>
 

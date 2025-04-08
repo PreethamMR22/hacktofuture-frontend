@@ -37,7 +37,7 @@ function Landing() {
             labels: ["Jan", "Feb", "Mar", "Apr", "May"],
             datasets: [
               {
-                label: "Security Factor",
+                label: "ER Factor",
                 data: [val1, val2, val3, val4, val1],
                 backgroundColor: "#fab005",
                 borderRadius: 10,
@@ -151,7 +151,7 @@ function Landing() {
   }, []);
 
   const handleClick = () => {
-    navigate('/stats');
+    navigate('/statistics');
   };
 
   return (
