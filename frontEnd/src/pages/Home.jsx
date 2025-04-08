@@ -1,17 +1,24 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Chart from "chart.js/auto";
 import "./Home.css";
 import BranchDashboard from "../components/dash";
 import BottomStats from "../components/BottomStats";
 import Landing from "../components/Landing";
-import Report from "../components/Report"; // ✅ NEW IMPORT
+import Report from "../components/Report";
 
 const Home = ({ shiftRight, show }) => {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [stats, setStats] = useState({
+    dailyPatients: 0,
+    medicineStock: 0,
+    revenue: 0,
+    feedback: 0,
+  });
 
   useEffect(() => {
     const ctx = chartRef.current?.getContext("2d");
@@ -39,9 +46,7 @@ const Home = ({ shiftRight, show }) => {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-        },
+        plugins: { legend: { display: false } },
         scales: {
           x: { grid: { display: false } },
           y: { beginAtZero: true, grid: { color: "rgba(255,255,255,0.1)" } },
@@ -58,23 +63,21 @@ const Home = ({ shiftRight, show }) => {
 
   return (
     <div className={`home ${shiftRight ? "shifted" : ""}`}>
-      {/* Top-left clickable area */}
-
       <div className="page-title">Current Data</div>
 
       <div>
         {location.pathname === "/statistics" ? (
           <BranchDashboard />
         ) : location.pathname === "/report" ? (
-          <Report /> // ✅ Shows report component if route is "/report"
+          <Report />
         ) : (
-          <Landing />
+          <Landing setStats={setStats} />
         )}
       </div>
 
       <div className="divider"></div>
 
-      <BottomStats />
+      <BottomStats stats={stats} />
     </div>
   );
 };

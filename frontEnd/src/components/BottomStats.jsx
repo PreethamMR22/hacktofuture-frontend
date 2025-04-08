@@ -1,11 +1,4 @@
-import { useEffect, useState } from "react";
-import {
-  Users,
-  PackageCheck,
-  DollarSign,
-  MessageCircle,
-  RefreshCcw,
-} from "lucide-react";
+import { RefreshCcw, Users, PackageCheck, DollarSign, MessageCircle } from "lucide-react";
 import "./Style/BottomStats.css";
 
 const iconMap = {
@@ -17,31 +10,13 @@ const iconMap = {
 
 const titles = {
   dailyPatients: "Daily Patients",
-  medicineStock: "Medicine Stock",
-  revenue: "Revenue",
-  feedback: "Feedback",
+  medicineStock: "Beds Required",
+  revenue: "Expenditure",
+  feedback: "Doctors Needed",
 };
 
-function BottomStats() {
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  const fetchStats = async () => {
-    try {
-      const response = await fetch("/stats.json");
-      const json = await response.json();
-      setData(json);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error fetching stats:", err);
-    }
-  };
-
-  useEffect(() => {
-    fetchStats();
-    const interval = setInterval(fetchStats, 5000);
-    return () => clearInterval(interval);
-  }, []);
+function BottomStats({ stats }) {
+  const loading = !stats || Object.keys(stats).length === 0;
 
   const statsKeys = ["dailyPatients", "medicineStock", "revenue", "feedback"];
 
@@ -57,8 +32,10 @@ function BottomStats() {
             <div className="stat-value">
               {loading ? (
                 <RefreshCcw className="loading-spinner" />
+              ) : key === "revenue" ? (
+                `₹${stats[key].toLocaleString()}`
               ) : (
-                data[key]
+                stats[key]
               )}
             </div>
             <div className="stat-footer">Updated every 5 sec</div>

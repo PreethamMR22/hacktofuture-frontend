@@ -4,7 +4,7 @@ import "../pages/Home.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function Landing() {
+function Landing({ setStats }) {
   const chartRef = useRef(null);
   const chartInstanceRef = useRef(null);
   const pieRef = useRef(null);
@@ -160,7 +160,7 @@ function Landing() {
     try {
       setLoading(true);
       const res = await axios.get(`http://127.0.0.1:5000/generate_report?zip_code=${zipCode}`);
-      const report = res.data.report;
+      const report = res.data.report.replace(/Date:.*\n?/g, "");
       setReportData(report);
 
       const numbers = report.match(/\d+/g)?.map(Number) || [];
@@ -173,6 +173,15 @@ function Landing() {
       setDoctors(docs);
       setExpenditure(expend);
       setPatientsExpected(patients);
+
+      if (setStats) {
+        setStats({
+          dailyPatients: patients,
+          medicineStock: bedReq,
+          revenue: expend,
+          feedback: docs
+        });
+      }
     } catch (err) {
       console.error("Failed to fetch report", err);
     } finally {
@@ -184,54 +193,43 @@ function Landing() {
     <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
       <div style={{ flex: 1 }}>
         <div style={{ padding: "1rem 2rem 0.5rem", display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <input
-  type="text"
-  placeholder="ZIP Code"
-  value={zipCode}
-  onChange={(e) => setZipCode(e.target.value)}
-  style={{
-    padding: "8px 12px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
-    outline: "none",
-    background: "#1e1e1e",
-    color: "white",
-    fontSize: "14px"
-  }}
-/>
-
-<input
-  type="number"
-  placeholder="Beds Available"
-  value={bedsAvailable}
-  onChange={(e) => setBedsAvailable(Number(e.target.value))}
-  style={{
-    padding: "8px 12px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
-    outline: "none",
-    background: "#1e1e1e",
-    color: "white",
-    fontSize: "14px"
-  }}
-/>
-
-<button
-  onClick={generateReport}
-  style={{
-    backgroundColor: "#fab005",
-    border: "none",
-    borderRadius: "8px",
-    padding: "8px 16px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    color: "#000",
-    transition: "0.3s ease"
-  }}
->
-  Generate
-</button>
-
+          <input
+            type="text"
+            placeholder="ZIP Code"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+            style={{
+              padding: "8px 12px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              outline: "none"
+            }}
+          />
+          <input
+            type="number"
+            placeholder="Beds Available"
+            value={bedsAvailable}
+            onChange={(e) => setBedsAvailable(Number(e.target.value))}
+            style={{
+              padding: "8px 12px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              outline: "none"
+            }}
+          />
+          <button
+            onClick={generateReport}
+            style={{
+              backgroundColor: "#fab005",
+              border: "none",
+              borderRadius: "8px",
+              padding: "8px 16px",
+              fontWeight: "bold",
+              cursor: "pointer"
+            }}
+          >
+            Generate
+          </button>
           {loading && (
             <div className="custom-spinner">
               <div className="dot"></div>
@@ -257,7 +255,7 @@ function Landing() {
             <h3 style={{ color: "#fab005" }}>Hospital Performance</h3>
             <p>
               {reportData
-                ? "Expand emergency zones, improve staff rotations, and ensure real-time logistics readiness."
+                ? `Expand emergency capacity by ${doctors * 3} sqm, deploy ${doctors} additional staff, and prepare for ${patientsExpected} incoming patients.`
                 : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus."}
             </p>
           </div>
